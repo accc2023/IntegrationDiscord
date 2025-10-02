@@ -2,20 +2,21 @@
 
 This Spring Boot app polls YouTrack notifications and sends them to a Discord channel via a webhook. It also lets you create YouTrack issues from Discord with a slash command. Although I have some prior exposure to Kotlin, I decided to use Java due to my familiarity with the language.
 
-I chose to develop the application using Spring Boot for its quick setup, built-in scheduling (@Scheduled), and a clean code structure that also avoids much pre-configuration (besides API tokens and such) if you do not follow a framework.
+I chose to develop the application using Spring Boot for its quick setup, built-in scheduling (@EnableScheduling), and a clean code structure that also avoids much pre-configuration (besides API tokens and such) if you do not follow a framework.
 
 ## Demo
-- Video demonstration (X minutes; no sound): 
+- Video demonstration (3 minutes; no sound): https://drive.google.com/file/d/1FoWrKsSySpmsA8mabqGVct2j4U5E1b9R/view?usp=sharing
+  - It goes through three use cases of using the YouTrack/Discord integration
 
 ## Features
 - Uses YouTrack REST API with a personal token
 - Sends key fields (Issue ID, Summary, Status/Priority/Comment, URL link) to Discord
 - Configurable base URL, token, and Discord webhook
 - Polls YouTrack on an interval (default 30 seconds), but the user can set this themself
-- Create issues from Discord with `/youtrack` command in Dthe iscord channel message
+- Create issues from Discord with `/youtrack` command in the Discord channel message
 
 ## Requirements
-- Java 17+ and Maven
+- Java 17+
 - A YouTrack instance
 - A Discord server you own
 
@@ -29,6 +30,7 @@ YOUTRACK_PROJECT_SHORT=DEMO
 DISCORD_WEBHOOK=https://discord.com/api/webhooks/...
 DISCORD_BOT_TOKEN=YOUR_BOT_TOKEN   # only needed for /youtrack
 POLL_SECONDS=30
+YOUTRACK_PROJECT_ID=0-2
 ```
 2. Run:
 ```
@@ -49,6 +51,7 @@ spring.application.name=Integration
 youtrack.baseUrl=${YOUTRACK_URL}
 youtrack.token=${YOUTRACK_TOKEN}
 youtrack.projectShort=${YOUTRACK_PROJECT_SHORT:DEMO}
+youtrack.projectId=${YOUTRACK_PROJECT_ID}
 discord.webhookUrl=${DISCORD_WEBHOOK}
 discord.botToken=${DISCORD_BOT_TOKEN}
 poll.seconds=${POLL_SECONDS:30}
@@ -56,9 +59,9 @@ poll.seconds=${POLL_SECONDS:30}
 
 ## Usage
 - **Notifications**: make a change in YouTrack (assign, comment, change priority, @mention) → the app posts to your Discord webhook. Make sure to enable the appropriate settings to receive corresponding notifications.
-- **Create issue**: in Discord (server with the bot), run `/youtrack summary: "Add new log in button"` → bot replies with the new issue key + link.
+- **Create issue**: in Discord (server with the bot), run `/youtrack summary: "Add new log in button"` → bot replies with the new issue text + link to the issue on YouTrack.
 
 ## Insights
-- **Unauthorized/HTML on poll**: `YOUTRACK_URL` must include `/api` and `YOUTRACK_TOKEN` must be set.
-- **Slash command missing**: invite with `applications.commands`; global commands can take ~60s on first create.
-- **Only “admin” notifications**: the feed is per token/user; use a shared bot account/token for a team feed.
+- Overall, quite a fun, fast-paced project. It was also my first time utilizing the (Discord) webhook for a personal project, and it was quite easy to set up.
+- I realised that sometimes the boilerplate code, with formatting especially, can be quite verbose and tricky to keep organised within the code base.
+- I noticed that the timestamps correspond to GMT time. I only realized this after recording the demo, but the fix would be to import DateTimeFormatter and use its formatting options to set the time to your own timezone instead of using YouTrack's timing from the metadata.
