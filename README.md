@@ -38,9 +38,9 @@ mvn spring-boot:run
 ```
 
 ## Configuration
-- **YouTrack**: Profile → Authentication → New token (select **YouTrack**); base URL must include `/api` (e.g., `https://team-intern.youtrack.cloud/api`); project short name like `DEMO`.
+- **YouTrack**: Profile → Authentication → New token (select **YouTrack**); base URL must include `/api` (e.g., `https://team-intern.youtrack.cloud/api`).
 - **Discord Webhook**: Channel → Settings → Integrations → Webhooks → New Webhook → copy URL → set `DISCORD_WEBHOOK`.
-- **Discord Bot** (for `/youtrack`):
+- **Discord Bot** (for slash command):
   - Developer Portal → Applications → New Application → **Bot** → Reset Token → set `DISCORD_BOT_TOKEN`
   - Invite bot (replace `CLIENT_ID`):
     `https://discord.com/oauth2/authorize?client_id=CLIENT_ID&scope=bot%20applications.commands&permissions=19456`
