@@ -44,12 +44,11 @@ public class YouTrackService {
     }
 
     // From Discord bot API to create a POST request to YouTrack API endpoint (in JSON format)
-    public Mono<JsonNode> createIssue(String summary, String projectShortOrId, boolean useShortName) {
+    public Mono<JsonNode> createIssue(String summary, String projectId) {
         var om = new ObjectMapper();
         var body = om.createObjectNode();
         var proj = om.createObjectNode();
-        if (useShortName) proj.put("shortName", projectShortOrId);
-        else proj.put("id", projectShortOrId);
+        proj.put("id", projectId);
         body.set("project", proj);
         body.put("summary", summary);
 

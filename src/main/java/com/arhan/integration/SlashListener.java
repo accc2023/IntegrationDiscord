@@ -13,14 +13,14 @@ public class SlashListener extends ListenerAdapter {
 
     private final YouTrackService youtrack;
     private final String youtrackApiBase;
-    private final String projectShort;
+    private final String projectId;
 
     public SlashListener(YouTrackService youtrack,
                          @Value("${youtrack.baseUrl}") String youtrackApiBase,
-                         @Value("${youtrack.projectShort:DEMO}") String projectShort) {
+                         @Value("${youtrack.projectId}") String projectId) {
         this.youtrack = youtrack;
         this.youtrackApiBase = youtrackApiBase;
-        this.projectShort = projectShort; // "DEMO" annotation of issue
+        this.projectId = projectId; // "DEMO" annotation of issue
     }
 
     // We will use JSON node to structure our incoming text
@@ -38,7 +38,7 @@ public class SlashListener extends ListenerAdapter {
         String summary = opt.getAsString();
         event.deferReply(true).queue();
 
-        Mono<JsonNode> created = youtrack.createIssue(summary, projectShort, true); // use DEMO to structure name
+        Mono<JsonNode> created = youtrack.createIssue(summary, projectId);
 
         created.subscribe(
                 node -> {
