@@ -1,4 +1,4 @@
-# YouTrack Integration with Discord (Java)
+# YouTrack Integration with Discord (Java Spring Boot)
 
 This Spring Boot app polls YouTrack notifications and sends them to a Discord channel via a webhook. It also lets you create YouTrack issues from Discord with a slash command. Although I have some prior exposure to Kotlin, I decided to use Java due to my familiarity with the language.
 
