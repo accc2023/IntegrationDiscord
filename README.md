@@ -4,6 +4,9 @@ This Spring Boot app polls YouTrack notifications and sends them to a Discord ch
 
 I chose to develop the application using Spring Boot for its quick setup, built-in scheduling (@Scheduled), and a clean code structure that also avoids much pre-configuration (besides API tokens and such) if you do not follow a framework.
 
+## Demo
+- Video demonstration (X minutes; no sound): 
+
 ## Features
 - Uses YouTrack REST API with a personal token
 - Sends key fields (Issue ID, Summary, Status/Priority/Comment, URL link) to Discord
