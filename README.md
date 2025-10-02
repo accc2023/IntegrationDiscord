@@ -15,7 +15,8 @@ This Spring Boot app polls YouTrack notifications and sends them to a Discord ch
 - A Discord server you can manage
 
 ## Running the App
-1. Set environment variables (replace placeholders):
+1. Set environment variables (can do this in an .env but in Spring Boot with IntelliJ it is easier to:
+   Run → Edit Configurations → (edit) Environment Variables
 ```
 YOUTRACK_URL=https://<your>.youtrack.cloud/api
 YOUTRACK_TOKEN=perm:YOUR_TOKEN
