@@ -1,18 +1,20 @@
 # YouTrack Integration with Discord (Java)
 
-This Spring Boot app polls YouTrack notifications and sends them to a Discord channel via a webhook. It also lets you create YouTrack issues from Discord with a slash command.
+This Spring Boot app polls YouTrack notifications and sends them to a Discord channel via a webhook. It also lets you create YouTrack issues from Discord with a slash command. Although I have some prior exposure to Kotlin, I decided to use Java due to my familiarity with the language.
+
+I chose to develop the application using Spring Boot for its quick setup, built-in scheduling (@Scheduled), and a clean code structure that also avoids much pre-configuration (besides API tokens and such) if you do not follow a framework.
 
 ## Features
 - Uses YouTrack REST API with a personal token
-- Sends key fields (Issue ID, Summary, Status/Priority/Comment, Link) to Discord
+- Sends key fields (Issue ID, Summary, Status/Priority/Comment, URL link) to Discord
 - Configurable base URL, token, and Discord webhook
-- Polls YouTrack on an interval (default 30 seconds)
-- Create issues from Discord with `/youtrack`
+- Polls YouTrack on an interval (default 30 seconds), but the user can set this themself
+- Create issues from Discord with `/youtrack` command in Dthe iscord channel message
 
 ## Requirements
 - Java 17+ and Maven
-- A YouTrack instance (cloud or server)
-- A Discord server you can manage
+- A YouTrack instance
+- A Discord server you own
 
 ## Running the App
 1. Set environment variables (can do this in an .env but in Spring Boot with IntelliJ it is easier to:
@@ -38,7 +40,7 @@ mvn spring-boot:run
   - Invite bot (replace `CLIENT_ID`):
     `https://discord.com/oauth2/authorize?client_id=CLIENT_ID&scope=bot%20applications.commands&permissions=19456`
 
-### App properties (already wired to env vars)
+### App properties (present in application.properties)
 ```
 spring.application.name=Integration
 youtrack.baseUrl=${YOUTRACK_URL}
@@ -50,7 +52,7 @@ poll.seconds=${POLL_SECONDS:30}
 ```
 
 ## Usage
-- **Notifications**: make a change in YouTrack (assign, comment, change priority, @mention) → the app posts to your Discord webhook.
+- **Notifications**: make a change in YouTrack (assign, comment, change priority, @mention) → the app posts to your Discord webhook. Make sure to enable the appropriate settings to receive corresponding notifications.
 - **Create issue**: in Discord (server with the bot), run `/youtrack summary: "Add new log in button"` → bot replies with the new issue key + link.
 
 ## Insights
